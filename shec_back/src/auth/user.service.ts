@@ -19,10 +19,9 @@ export class UsersService {
     private jwtService :JwtService
     
   ){}
-  users = []
   
-  async findAll() {
-    const result = await this.userRepository.find();  // Obtiene todos los usuarios sin filtro adicional
+  async findAll(skip: number, take:number) {
+    const result = await this.userRepository.find({take: take, skip: skip });  // Obtiene todos los usuarios sin filtro adicional
     return result.map(item => {
       const { password, ...user } = item;  // Excluye el atributo `password` en la respuesta
       return user;
@@ -75,19 +74,5 @@ export class UsersService {
         return !bcryptjs.compareSync(password, user.password);
       
       }
-
-
-    updateUser(id:string, updateUser:UpdateUserDto){
-    this.users = this.users.map(user => 
-      user.id === id 
-        ? {...user, ...updateUser}
-        : user
-    );
-  }
-
-  deleteUser(id:string){
-    this.users = this.users
-      .filter(user=>user.id!==id);
-  }
 
 }

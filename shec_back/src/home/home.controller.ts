@@ -1,7 +1,6 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { HomeService } from './home.service';
 import { CreateHomeDto } from './dto/create-home.dto';
-import { UpdateHomeDto } from './dto/update-home.dto';
 
 @Controller('home')
 export class HomeController {
@@ -9,12 +8,12 @@ export class HomeController {
 
   @Post()
   create(@Body() createHomeDto: CreateHomeDto) {
-    return this.homeService.create(createHomeDto);
+    return this.homeService.createHome(createHomeDto);
   }
 
   @Get()
-  findAll() {
-    return this.homeService.findAll();
+  findAll(@Query('take') take:number, @Query('skip') skip:number){
+    return this.homeService.findAll(skip,take);
   }
 
   @Get(':id')
@@ -22,13 +21,4 @@ export class HomeController {
     return this.homeService.findOne(+id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateHomeDto: UpdateHomeDto) {
-    return this.homeService.update(+id, updateHomeDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.homeService.remove(+id);
-  }
 }

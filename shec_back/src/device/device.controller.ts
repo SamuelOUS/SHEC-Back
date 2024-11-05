@@ -1,7 +1,9 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { DeviceService } from './device.service';
 import { CreateDeviceDto } from './dto/create-device.dto';
 import { UpdateDeviceDto } from './dto/update-device.dto';
+import { skip } from 'node:test';
+import { table } from 'node:console';
 
 @Controller('device')
 export class DeviceController {
@@ -9,12 +11,12 @@ export class DeviceController {
 
   @Post()
   create(@Body() createDeviceDto: CreateDeviceDto) {
-    return this.deviceService.create(createDeviceDto);
+    return this.deviceService.createDevice(createDeviceDto);
   }
 
   @Get()
-  findAll() {
-    return this.deviceService.findAll();
+  findAll(@Query('take') take:number, @Query('skip') skip:number) {
+    return this.deviceService.findAll(skip,take);
   }
 
   @Get(':id')
@@ -22,13 +24,4 @@ export class DeviceController {
     return this.deviceService.findOne(+id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateDeviceDto: UpdateDeviceDto) {
-    return this.deviceService.update(+id, updateDeviceDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.deviceService.remove(+id);
-  }
 }

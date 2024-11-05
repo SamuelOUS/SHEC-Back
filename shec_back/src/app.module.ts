@@ -6,6 +6,7 @@ import { DeviceModule } from './device/device.module';
 import { UserModule } from './auth/user.module';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { BillModule } from './bill/bill.module';
 
 
 @Module({
@@ -23,7 +24,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     }),
     HomeModule,
      DeviceModule, 
-     UserModule],
+     UserModule, BillModule],
   controllers: [],
   providers: [],
 })

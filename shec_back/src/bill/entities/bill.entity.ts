@@ -1,18 +1,19 @@
-// }// src/entities/client.entity.ts
+// src/entities/client.entity.ts
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity('home')
-export class home {
+@Entity('bill')
+export class bill {
   @PrimaryGeneratedColumn()
-  id_home: number;
+  id_bill: string;
 
   @Column({ nullable: false })
-  id_client: string;
+  id_home: number;
 
   @Column()
-  stratum: string;
+  price_kw: number;
 
   @Column()
-  address: string;
-
+  emition_date: Date;
 }
+
+
